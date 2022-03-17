@@ -4,7 +4,10 @@
   "description": "English word checker",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,14 @@
   "bugs": {
     "url": "https://github.com/kinglarce/plusone-en-checker-backend/issues"
   },
-  "homepage": "https://github.com/kinglarce/plusone-en-checker-backend#readme"
+  "homepage": "https://github.com/kinglarce/plusone-en-checker-backend#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5.5.0",
+    "@typescript-eslint/parser": "5.5.0",
+    "eslint": "8.3.0",
+    "eslint-config-airbnb": "19.0.1",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "typescript": "^4.5.2"
+  }
 }
