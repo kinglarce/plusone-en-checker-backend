@@ -1,0 +1,19 @@
+{
+  "name": "plusone-en-checker-backend",
+  "version": "1.0.0",
+  "description": "English word checker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kinglarce/plusone-en-checker-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kinglarce/plusone-en-checker-backend/issues"
+  },
+  "homepage": "https://github.com/kinglarce/plusone-en-checker-backend#readme"
+}
