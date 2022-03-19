@@ -3,9 +3,9 @@ import CheckerController from "../controllers/checker";
 
 const router = express.Router();
 
-router.get("/checker", async (_req, res) => {
+router.get("/checker/:word", async (_req, res) => {
   const controller = new CheckerController();
-  const response = await controller.getResponse();
+  const response = await controller.getResponse(_req.params.word);
   return res.send(response);
 });
 
