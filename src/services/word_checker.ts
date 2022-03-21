@@ -34,14 +34,13 @@ const validateWords = async (word: string) => {
   const key = getKey(word);
   // console.log("cache : ", cache);
   if (Object.keys(cache).length === 0) {
-    console.log("hey");
     generate().then(() => {
       console.log("Sample search : ", cache[key]);
     });
     return;
-  } else {
-    console.log("Sample search2 : ", cache[key]);
   }
+  console.log("Sample search2 : ", cache[key]);
+  return;
 };
 
 export { validateWords };
