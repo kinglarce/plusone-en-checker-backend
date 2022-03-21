@@ -12,3 +12,4 @@ node_modules/
 
 # Output folder
 dist/
+coverage/
