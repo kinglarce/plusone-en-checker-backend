@@ -1,17 +1,19 @@
 import fs from "fs";
 import readline from "readline";
 
-interface Cache {
+interface ICache {
   [key: string]: string;
 }
 
-const cache: Cache = {};
+let cache: ICache = {};
 const WORD_LIST_FILE = "./public/master.txt";
+const SPACES_REGEXP = /\r?\n|\r/g;
+const ALPHANUM_REGEXP = /[^a-zA-Z0-9\-_\s]/g;
 
-const getKey = (word: string) => word.replace(/\r?\n|\r/g, "").toLowerCase();
+const getKey = (word: string) => word.replace(SPACES_REGEXP, "").toLowerCase();
 
-const generate = async () => {
-  return new Promise<Cache>((resolve) => {
+const generateCache = async (): Promise<ICache> => {
+  return new Promise<ICache>((resolve) => {
     const fileStream = fs.createReadStream(WORD_LIST_FILE);
     const rl = readline.createInterface({
       input: fileStream,
@@ -19,28 +21,31 @@ const generate = async () => {
     });
     rl.on("line", (line: string) => {
       const word = getKey(line);
-      console.log("the word : ", word);
       cache[word] = line;
     });
     fileStream.on("end", () => {
+      fileStream.close();
       resolve(cache);
+    });
+    fileStream.on("close", () => {
+      fileStream.destroy();
     });
   });
 };
 
-const validateWords = async (word: string) => {
-  // const word_cache: Cache | unknown = !cache ? await generate() : cache;
-  // cache = !cache ? await generate() : cache;
+const isWordExists = async (word: string): Promise<boolean> => {
   const key = getKey(word);
-  // console.log("cache : ", cache);
-  if (Object.keys(cache).length === 0) {
-    generate().then(() => {
-      console.log("Sample search : ", cache[key]);
-    });
-    return;
-  }
-  console.log("Sample search2 : ", cache[key]);
-  return;
+  cache = Object.keys(cache).length === 0 ? await generateCache() : cache;
+  return cache[key] ? true : false;
 };
 
-export { validateWords };
+const getInvalidWords = async (sentence: string): Promise<string[]> => {
+  const words = sentence
+    .replace(ALPHANUM_REGEXP, "")
+    .split(" ")
+    .filter(Boolean);
+  const wordsValidity = await Promise.all(words.map(isWordExists));
+  return words.filter((_, index) => !wordsValidity[index]);
+};
+
+export { getInvalidWords };
