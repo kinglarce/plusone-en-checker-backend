@@ -1,14 +1,12 @@
 import { getInvalidWords } from "../services/word_checker";
-interface CheckerResponse {
-  message: string;
+
+interface ICheckerPayload {
+  sentence: string;
 }
 
-// Test: // Do you likee cats adn dogs?
 export default class CheckerController {
-  public async getResponse(word: string): Promise<CheckerResponse> {
-    getInvalidWords(word);
-    return {
-      message: "Test",
-    };
+  public async check({ sentence }: ICheckerPayload): Promise<string[]> {
+    if (!sentence) throw new Error("Invalid payload.");
+    return getInvalidWords(sentence);
   }
 }

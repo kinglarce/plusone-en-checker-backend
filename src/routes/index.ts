@@ -3,10 +3,15 @@ import CheckerController from "../controllers/checker";
 
 const router = express.Router();
 
-router.get("/checker/:word", async (_req, res) => {
-  const controller = new CheckerController();
-  const response = await controller.getResponse(_req.params.word);
-  return res.send(response);
+router.post("/check", async (req, res) => {
+  try {
+    const controller = new CheckerController();
+    const response = await controller.check(req.body);
+    return res.send(response);
+  } catch (error) {
+    console.error((<Error>error).stack);
+    res.status(400).send((<Error>error).message);
+  }
 });
 
 export default router;
