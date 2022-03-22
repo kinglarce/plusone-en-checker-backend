@@ -1,4 +1,4 @@
-import { getInvalidWords } from "./word_checker";
+import { getInvalidWords } from "./checker.service";
 
 describe("WordChecker", () => {
   describe("getInvalidWords", () => {

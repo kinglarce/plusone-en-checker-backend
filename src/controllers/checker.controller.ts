@@ -1,4 +1,4 @@
-import { getInvalidWords } from "../services/word_checker";
+import { getInvalidWords } from "../services/checker.service";
 
 interface ICheckerPayload {
   sentence: string;
